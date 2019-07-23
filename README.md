@@ -1,4 +1,4 @@
-ros-install-osx: Melodic Mojave
+ros-install-osx: Melodic on Mojave
 ===============
 
 This repo contains the files and instructions I used to set up ROS Melodic on Mojave. Almost all of the files are from @mikepurvis's [original repo]() or @bgromov's [modifications](https://gist.github.com/bgromov/23a74bbe846d965964b150080cb2d574). I added 
