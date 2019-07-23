@@ -4,16 +4,17 @@ libogre-dev:
     homebrew:
       packages: [ogre1.9]
 
-# Use Gazebo 8 instead of 7.
-gazebo7:
+# Use Gazebo 9
+gazebo9:
   osx:
     homebrew:
-      packages: [gazebo8]
-libgazebo7-dev:
+      packages: [gazebo9]
+libgazebo9-dev:
   osx:
     homebrew:
-      packages: [gazebo8]
+      packages: [gazebo9]
 
+#
 # Don't try to install opencv3
 opencv3:
   osx:
@@ -87,3 +88,16 @@ python-qt5-bindings:
   osx:
     homebrew:
       packages: []
+
+python-gnupg:
+  osx:
+    pip:
+      packages: [gpg]
+libgpgme-dev:
+  osx:
+    homebrew:
+      packages: [gpgme]
+google-mock:
+  osx:
+    homebrew:
+      packages: [gtest]

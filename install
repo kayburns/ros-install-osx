@@ -22,8 +22,8 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-ROS_DISTRO=${ROS_DISTRO:-lunar}
-ROS_CONFIGURATION=${ROS_CONFIGURATION:-desktop_full}
+ROS_DISTRO=${ROS_DISTRO:-melodic}
+ROS_CONFIGURATION=${ROS_CONFIGURATION:-desktop}
 ROS_EXTRA_PACKAGES=${ROS_EXTRA_PACKAGES:-}
 ROS_INSTALL_DIR=${ROS_INSTALL_DIR:-/opt/ros/${ROS_DISTRO}}
 
@@ -137,7 +137,7 @@ do_install()
   pushd src
     # Avoid downloading opencv3; we already installed it from homebrew.
     wstool merge file://$(pwd)/../${WS}.rosinstall
-    wstool remove opencv3
+    #wstool remove opencv3
     wstool update -j8
 
     # See: https://github.com/ros/catkin/pull/784
@@ -172,6 +172,9 @@ do_install()
     sudo chown $USER ${ROS_INSTALL_DIR}
   fi
 
+  # OpenSSL
+  export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:/usr/local/opt/openssl/lib/pkgconfig"
+
   # Parallel build.
   catkin config --install \
     --install-space ${ROS_INSTALL_DIR} \
@@ -181,7 +184,8 @@ do_install()
       -DCMAKE_FIND_FRAMEWORK=LAST \
       -DPYTHON_EXECUTABLE=$(which python2) \
       -DPYTHON_LIBRARY=$(python2 -c "import sys; print sys.prefix")/lib/libpython2.7.dylib \
-      -DPYTHON_INCLUDE_DIR=$(python2 -c "import sys; print sys.prefix")/include/python2.7
+      -DPYTHON_INCLUDE_DIR=$(python2 -c "import sys; print sys.prefix")/include/python2.7 \
+      -DCMAKE_CXX_STANDARD=14
   catkin build --limit-status-rate 1
 
   echo "Installation successful, please source the ROS workspace:"
